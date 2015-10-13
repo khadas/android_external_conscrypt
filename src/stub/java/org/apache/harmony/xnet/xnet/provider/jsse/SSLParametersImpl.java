@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 The Android Open Source Project
+ * Copyright 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package org.conscrypt;
+package org.apache.harmony.xnet.provider.jsse;
 
-/**
- * Used to hold onto native OpenSSL references and run finalization on those
- * objects. Individual types must subclass this and implement finalizer.
- */
-public abstract class OpenSSLNativeReference {
-    final long context;
-
-    public OpenSSLNativeReference(long ctx) {
-        if (ctx == 0) {
-            throw new NullPointerException("ctx == 0");
-        }
-
-        this.context = ctx;
+class SSLParametersImpl {
+    public static SSLParametersImpl getDefault() {
+        throw new RuntimeException("Stub!");
     }
 }

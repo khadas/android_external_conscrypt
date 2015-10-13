@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,20 @@
 
 package org.conscrypt;
 
-public class OpenSSLDigestContext extends OpenSSLNativeReference {
-    public OpenSSLDigestContext(long ctx) {
-        super(ctx);
+import java.io.IOException;
+import java.net.Socket;
+
+/**
+ * {@link SSLSocketFactory} which creates unbundled conscrypt SSLSockets and wraps them into
+ * pre-KitKat platform SSLSockets.
+ */
+public class PreKitKatPlatformOpenSSLSocketAdapterFactory extends BaseOpenSSLSocketAdapterFactory {
+    public PreKitKatPlatformOpenSSLSocketAdapterFactory(OpenSSLSocketFactoryImpl delegate) {
+        super(delegate);
     }
 
     @Override
-    protected void finalize() throws Throwable {
-        try {
-            NativeCrypto.EVP_MD_CTX_destroy(context);
-        } finally {
-            super.finalize();
-        }
+    protected Socket wrap(OpenSSLSocketImpl socket) throws IOException {
+        return new PreKitKatPlatformOpenSSLSocketImplAdapter(socket);
     }
 }

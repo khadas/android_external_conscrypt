@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,29 +14,10 @@
  * limitations under the License.
  */
 
-package org.conscrypt;
+package com.android.org.conscrypt;
 
-class OpenSSLCipherContext {
-    private final long context;
-
-    OpenSSLCipherContext(long ctx) {
-        if (ctx == 0) {
-            throw new NullPointerException("ctx == 0");
-        }
-
-        this.context = ctx;
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            NativeCrypto.EVP_CIPHER_CTX_free(context);
-        } finally {
-            super.finalize();
-        }
-    }
-
-    long getContext() {
-        return context;
+class SSLParametersImpl {
+    public static SSLParametersImpl getDefault() {
+        throw new RuntimeException("Stub!");
     }
 }
